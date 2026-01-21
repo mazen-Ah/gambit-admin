@@ -10,7 +10,7 @@ export default function FormikDebounce() {
     debounce = setTimeout(() => {
       formik?.submitForm()
     }, 500)
-  }, [formik?.values])
+  }, [formik?.values, formik])
 
   return null
 }

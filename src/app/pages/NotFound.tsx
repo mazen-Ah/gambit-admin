@@ -1,10 +1,8 @@
-import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setBreadCrumbsData } from "../../store/redux/breadCrumbsData";
 
 const NotFound = () => {
 
-    const { t } = useTranslation()
     const dispatch = useDispatch()
     dispatch(setBreadCrumbsData({
         page_title: "Not Found",

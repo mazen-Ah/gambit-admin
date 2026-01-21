@@ -8,7 +8,7 @@ const WelcomePage = () => {
 
   useEffect(() => {
     dispatch(setBreadCrumbsData({ page_title: t('home') }));
-  }, [t, setBreadCrumbsData]);
+  }, [t, dispatch]);
 
   return (
     <div className="text-container">

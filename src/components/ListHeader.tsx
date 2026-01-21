@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { IChildren } from "../types/Interfaces";
 
 const ListHeader = ({children,customClass}:{children:ReactNode,customClass?:string}) => {
     return ( 

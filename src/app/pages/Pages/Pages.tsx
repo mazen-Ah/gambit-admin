@@ -8,7 +8,7 @@ import Button from '../../../components/buttons/Button';
 const Pages = () => {
   const { t } = useTranslation();
 
-  const { apiData, apiDataLoading, paginationEle, searchEle } = useModuleTableHelpers({
+  const { apiData, apiDataLoading, paginationEle } = useModuleTableHelpers({
     route: 'cms/admin/pages',
     withBreadcrumb: true,
     // withSearch: true,

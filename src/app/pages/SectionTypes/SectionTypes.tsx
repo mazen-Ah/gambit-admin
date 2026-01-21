@@ -8,7 +8,7 @@ import Button from '../../../components/buttons/Button';
 const SectionTypes = () => {
   const { t } = useTranslation();
 
-  const { apiData, apiDataLoading, paginationEle, searchEle } = useModuleTableHelpers({
+  const { apiData, apiDataLoading, paginationEle } = useModuleTableHelpers({
     route: 'cms/admin/section-types',
     withBreadcrumb: true,
     breadcrumbTitle: t('section_types'),
