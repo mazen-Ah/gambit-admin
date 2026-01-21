@@ -1,0 +1,8 @@
+.admin_panel_header .normal_header .left-side .admin_data_btn .admin_data_drop_down.show {
+    right: unset;
+    left: 0;
+    &::after{
+        right: unset;
+        left: 1.25rem;
+    }
+}

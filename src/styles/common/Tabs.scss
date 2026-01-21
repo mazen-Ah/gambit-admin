@@ -1,0 +1,18 @@
+.tabs{
+  display: flex;
+  gap: .5rem;
+  .tab{
+    padding: .75rem 0;
+    font-size: .75rem;
+    width: 7rem;
+    text-align: center;
+    border: $border;
+    border-radius: $border_radius;
+    cursor: pointer;
+    transition: .25s all;
+    &.active{
+      background: #000;
+      color: #fff;
+    }
+  }
+}

@@ -1,0 +1,292 @@
+.modal_container {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: $modal_bg;
+	z-index: 1001;
+
+	h4 {
+		text-transform: unset;
+	}
+
+	&.small .modal {
+		max-width: 600px;
+	}
+
+	&.x-small .modal {
+		max-width: 400px;
+	}
+
+	&.teams_modal {
+		.modal {
+			width: 70%;
+			max-height: $teams_modal_height;
+		}
+	}
+
+
+	.modal {
+		width: 55%;
+		max-height: $teams_modal_height;
+		background: #fff;
+		border-radius: $border_radius;
+		overflow-y: auto;
+
+		&.overflow {
+			overflow-y: unset;
+		}
+
+		.modal_content {
+			height: 100%;
+			width: 100%;
+			padding: 2.5rem $padding_inline;
+
+			&.permissions {
+				position: relative;
+				height: unset;
+				max-height: 85vh;
+				overflow-y: scroll;
+				padding: 0;
+
+				.header {
+					padding: 2rem;
+					position: sticky;
+					background-color: #fff;
+					top: 0;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					border-bottom: 1px solid #000;
+					padding-bottom: 1rem;
+					margin-bottom: 1rem;
+				}
+
+				.permissions-data {
+					padding: 2rem;
+					border-bottom: $border;
+					padding-bottom: 1rem;
+					padding-top: 0rem;
+					margin-bottom: 1rem;
+
+					&:last-child {
+						margin-bottom: 0;
+						border: none;
+					}
+
+					h4 {
+						text-transform: capitalize;
+						margin-bottom: 1rem;
+						font-size: 1rem;
+					}
+
+					.data {
+						width: 100%;
+						display: flex;
+						row-gap: 1rem;
+						flex-direction: row;
+						flex-wrap: wrap;
+
+						p {
+							width: 50%;
+							font-size: .85rem;
+						}
+					}
+				}
+			}
+		}
+
+		.buttons {
+			.button_container {
+				margin-inline-start: unset;
+			}
+		}
+	}
+
+	.status_modal {
+		padding: 2 * $padding_inline $padding_inline;
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+		position: relative;
+
+		.close_icon {
+			position: absolute;
+			right: $padding_inline;
+			top: $padding_inline;
+			cursor: pointer;
+		}
+
+		.info {
+			text-align: center;
+
+			h4 {
+				margin-bottom: 0.5rem;
+				text-align: center;
+			}
+		}
+
+		.header {
+			margin-inline: auto;
+			width: fit-content;
+			min-width: 90%;
+		}
+
+		.input_wrapper {
+			width: fit-content;
+			min-width: 90%;
+			margin: auto;
+		}
+
+		h4 {
+			font-size: 1.3rem;
+			line-height: 1.5;
+			text-align: center;
+			// margin-bottom: 2rem;
+		}
+
+		.buttons {
+			display: flex;
+			// justify-content: flex-start;
+			justify-content: center;
+			gap: $padding_inline;
+
+			// margin: auto;
+			.button_container {
+				color: white;
+				margin-inline-start: unset;
+				min-width: 9.6rem;
+			}
+		}
+	}
+
+	.date {
+		.header {
+			margin-bottom: 1.5rem;
+
+			h4 {
+				margin-bottom: 0rem;
+			}
+			span{
+				opacity: .6;
+				font-size: .8rem;
+			}
+		}
+
+		.rdrDateRangeWrapper {
+			position: relative !important;
+			margin-bottom: 1rem;
+			min-height: 24rem;
+		}
+
+		.button_container {
+			width: 100%;
+		}
+	}
+}
+
+.common-modal {
+	position: relative;
+	padding: $padding_inline;
+
+	&.appStatus {
+		.buttons {
+			padding-top: 4rem;
+		}
+	}
+
+	&.status {
+		padding: 2.5rem 1.5rem;
+		text-align: center;
+
+		.statusIcon {
+			padding-bottom: 2rem;
+		}
+
+		p {
+			padding-bottom: 2rem;
+		}
+	}
+
+	h4 {
+		font-size: 1.3rem;
+		line-height: 1.5;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	.buttons {
+		display: flex;
+		justify-content: center;
+		gap: 20px;
+
+		.button_container {
+			color: white;
+		}
+	}
+
+	.close_icon {
+		position: absolute;
+		right: $padding_inline;
+		top: $padding_inline;
+		cursor: pointer;
+	}
+
+	.modal-header {
+		display: flex;
+		justify-content: space-between;
+
+		h4 {
+			margin-bottom: 1rem;
+		}
+	}
+
+	.modal-info {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		span {
+			text-transform: capitalize;
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	.modal_container {
+		.modal {
+			width: 85%;
+
+			.status_modal {
+				.buttons {
+					flex-direction: column;
+					gap: 1rem;
+					width: 100%;
+
+					.button_container {
+						span {
+							font-size: 0.85rem;
+						}
+					}
+				}
+			}
+
+			.modal_content {
+
+				&.permissions {
+
+					.permissions-data {
+
+						.data {
+							p {
+								width: 100%;
+								font-size: .85rem;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

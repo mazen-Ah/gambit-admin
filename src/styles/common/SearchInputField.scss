@@ -1,0 +1,38 @@
+.search_input_field {
+    padding: 0;
+    max-width: unset;
+    .input_wrapper{
+        position: relative;
+        svg{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 1rem;
+        }
+        input{
+            padding: 0;
+            padding-inline: 2rem 1rem;
+            font-size: 0.75rem;
+            border-radius: 8px;
+            outline: 0;
+            border: 1px solid #f0f0f0;
+            width: 24rem;
+            height: 3rem;
+            &::placeholder{
+                font-weight: 400;
+                font-size: 0.75rem;
+            }
+        }
+    }
+}
+
+:lang(ar){
+    .search_input_field{
+        .input_wrapper{
+            svg{
+                left: unset;
+                right: 1rem;
+            }
+        }
+    }
+}

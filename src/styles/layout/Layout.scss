@@ -1,0 +1,223 @@
+.layout {
+	display: flex;
+	background-color: #fff;
+
+	.layout_inner {
+		background-color: $main_bg;
+		min-height: 100vh;
+		display: flex;
+		width: 100%;
+
+		// visibility: hidden;
+		.layout_wrapper {
+			flex: 1;
+			padding: $padding_inline;
+			overflow: hidden;
+			// position: relative;
+			width: 100%;
+
+			.layout_content {
+				padding-inline: $padding_inline;
+				max-height: calc(100vh - 2 * $padding_inline);
+				height: 100%;
+				background-color: $gray_bg;
+				border-radius: $border_radius;
+				overflow-y: scroll;
+
+				&.login_layout {
+					position: relative;
+					overflow: hidden;
+					padding: 0;
+
+					.content_container {
+						padding: 0;
+						height: 100%;
+
+						> div {
+							height: 100%;
+						}
+					}
+				}
+
+				.content_container {
+					padding: 2rem 0;
+
+					.service_details_page {
+						display: flex;
+						flex-direction: column;
+						gap: 2rem;
+					}
+
+					.page_container {
+						width: 100%;
+						display: flex;
+						gap: $padding_inline;
+
+						.form-container {
+							width: 100%;
+						}
+
+						.page_content {
+							flex: 1;
+							width: 100%;
+
+							.no_players_to_register {
+								padding-top: 3rem;
+								padding-bottom: 3rem;
+							}
+
+							.schedule_note {
+								display: flex;
+								justify-content: space-between;
+								align-items: center;
+								margin-top: -1rem;
+								margin-bottom: 1rem;
+								position: relative;
+								border-radius: 6px;
+								width: 100%;
+								background: #faa1a8;
+								padding: 0.25rem 1rem;
+								color: #000;
+
+								&.hide_hint {
+									display: none;
+								}
+
+								.text {
+									display: flex;
+									gap: 0.5rem;
+									align-items: center;
+
+									p {
+										font-size: 0.85rem;
+										font-weight: 400;
+									}
+								}
+
+								svg {
+									cursor: pointer;
+								}
+							}
+						}
+
+						&.contact_links_page_components {
+							display: inline-block;
+						}
+					}
+
+					.form_container-wraapper {
+						width: 100%;
+					}
+
+					.cms_page_content {
+						border: solid 1px #e5e5e5;
+						padding: 1.5rem;
+						border-radius: 15px;
+						margin-bottom: 2rem;
+						padding-bottom: 3rem;
+
+						&:last-of-type {
+							margin-bottom: 0;
+							padding-bottom: 0.5rem;
+						}
+
+						&.article_page {
+							margin-bottom: 0;
+							padding-bottom: 0.5rem;
+						}
+
+						&.tournament_request_details {
+							.input_wrapper {
+								.react-select__control {
+									background-color: #f8f8f8;
+								}
+
+								.react-select__indicators {
+									display: none;
+								}
+
+								.date-input {
+									pointer-events: none;
+
+									.rmdp-input {
+										background-color: #f8f8f8;
+									}
+								}
+							}
+						}
+
+						&.create_registered_team {
+							padding: $padding_inline;
+						}
+					}
+				}
+			}
+
+			.top_btn {
+				position: fixed;
+				z-index: 99;
+				right: 4.375rem;
+				bottom: 3rem;
+				background: #000;
+				color: #fff;
+				width: 3.375rem;
+				height: 3.375rem;
+				border-radius: 50%;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				svg {
+					width: 1.414rem;
+					position: relative;
+					z-index: 99;
+				}
+			}
+		}
+	}
+}
+
+.page_content {
+	.form-steps-content {
+		border: solid 1px rgba(0, 0, 0, 0.1);
+		border-radius: $border_radius;
+		overflow: hidden;
+		.form {
+			padding: 2rem;
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	.layout {
+		.layout_inner {
+			.layout_wrapper {
+				padding: $padding_inline_mobile;
+
+				.layout_content {
+					padding-inline: 1rem;
+					max-height: calc(100vh - 2 * $padding_inline_mobile);
+				}
+			}
+		}
+	}
+	.page_content {
+		.form-steps-content {
+			.steps_header {
+				overflow-x: scroll;
+				li {
+					// width: unset;
+					// margin-inline-end: -5rem;
+					padding: 0.85rem 1rem;
+					span {
+						min-width: 8rem;
+					}
+				}
+			}
+			.form {
+				padding: 2rem 1rem;
+			}
+		}
+	}
+}

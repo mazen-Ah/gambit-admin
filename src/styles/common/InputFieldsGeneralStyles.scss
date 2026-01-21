@@ -1,0 +1,99 @@
+.inputs_group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+
+  &.small-gap {
+    gap: 1rem;
+  }
+  // padding-bottom: 1rem;
+
+  .field_wrapper_container {
+    flex: 1;
+  }
+}
+
+.inputs_grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3rem;
+
+  &.with_bottom_padding {
+    padding-bottom: 2rem;
+  }
+
+  &.small-gap {
+    gap: 1rem;
+  }
+
+  // Generate grid classes using SCSS loop
+  @for $i from 1 through 12 {
+    .grid-#{$i} {
+      grid-column: span #{$i};
+      padding-bottom: 0;
+      .skeleton_input{
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+  // Responsive grid classes for mobile using loop
+  @media (max-width: 1024px) {
+    $mobile-sizes: (3, 4, 6, 12);
+    @each $size in $mobile-sizes {
+      .grid-mobile-#{$size} {
+        grid-column: span #{$size};
+      }
+    }
+  }
+}
+
+.custom_rich_text_input {
+  .quill {
+    background-color: white;
+    width: 100%;
+	.ql-toolbar{
+		.ql-formats{
+			.ql-picker-label{
+				svg{
+					right: unset;
+					inset-inline-end: 0;
+				}
+			}
+		}
+	}
+    .ql-editor {
+      min-height: 10rem;
+      text-align: start;
+      max-width: 100%;
+    }
+  }
+}
+
+:lang(ar) {
+  .multi-select-wrapper {
+    .MuiFormLabel-root {
+      left: unset;
+      right: 3rem;
+    }
+
+    .MuiSelect-iconCustom {
+      left: 1rem;
+      right: unset;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .inputs_group {
+    flex-direction: column;
+    gap: 0;
+
+    &.special-mobile {
+      .button_container {
+        width: 100%;
+      }
+    }
+  }
+}

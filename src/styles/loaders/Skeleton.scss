@@ -1,0 +1,188 @@
+.skeleton {
+	&_container-border {
+		border-radius: $border_radius;
+		border: $border;
+		padding: 25px;
+		margin-bottom: 20px;
+	}
+	&_text-box {
+		border-radius: $border_radius !important;
+		height: 170px;
+		margin-bottom: 2rem;
+	}
+	&_input {
+		border-radius: $btns_border_radius !important;
+		height: 51px;
+		margin-bottom: 2rem;
+		width: 384px;
+
+		&.textarea{
+			height: 13rem;
+		}
+		&.switch{
+			max-width: 30rem;
+		}
+		&.no-padding{
+			padding-bottom: 0;
+			margin-bottom: 0;
+		}
+	}
+	&_input-title {
+		border-radius: $btns_border_radius !important;
+		height: 24px;
+		width: 14rem !important;
+		margin-bottom: 10px;
+	}
+	&_box{
+		border-radius: 8px !important;
+		height: 50px;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	&_table-text {
+		border-radius: $border_radius;
+		height: 13px;
+		width: 60px;
+		margin-bottom: 10px;
+	}
+	&_title {
+		border-radius: $btns_border_radius !important;
+		height: 30px;
+		margin-bottom: 2rem;
+		&.small{
+			width: 300px !important;
+		}
+	}
+	&_calendar_title {
+		border-radius: $btns_border_radius !important;
+		height: 30px;
+		width: 300px;
+	}
+	&_calendar_options {
+		border-radius: $btns_border_radius !important;
+		height: 40px;
+		width: 200px;
+	}
+	&_calendar_content {
+		border-radius: $border_radius;
+	}
+	&_update_info {
+		border-radius: $border_radius !important;
+		width: 320px;
+		height: 150px;
+		flex-shrink: 0;
+		margin-bottom: 2rem;
+		&.featured {
+			height: 230px;
+		}
+	}
+	&_image {
+		border-radius: $border_radius !important;
+		height: 206px;
+		width: 100%;
+		margin-bottom: 2rem;
+	}
+	&_flex {
+		display: flex;
+		justify-content: center;
+		gap: 20px;
+		width: 100%;
+		&.s-b{
+			justify-content: space-between;
+		}
+	}
+	&_flex_column {
+		flex-direction: column;
+	}
+	&_flex > span {
+		width: 100%;
+	}
+	&_mb-big{
+		margin-bottom: 50px;
+	}
+	&_padding{
+		padding: 24px;
+	}
+	&_button {
+		border-radius: $btns_border_radius !important;
+		width: 10rem !important;
+		height: 40px;
+		&.small{
+			border-radius: 8px !important;
+			width: 80px;
+		}
+	}
+
+	&_no-margin {
+		margin: 0 !important;
+	}
+
+	&_w-100 {
+		width: 100%;
+	}
+
+	&_w-fit{
+		width: fit-content !important;
+	}
+
+	&_box {
+		background-color: white;
+		border-radius: $border_radius;
+		overflow: hidden;
+		border: $border;
+	}
+
+	&_box-header {
+		background-color: black;
+		padding: 1.22rem 1.67rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&_box-body {
+		padding: 24px;
+	}
+	&_mb0 {
+		margin-bottom: 0;
+	}
+	&_teams_content {
+		border: solid 1px #e5e5e5;
+		padding: 1.5rem;
+		border-radius: 15px;
+		margin-bottom: 2rem;
+		padding-bottom: 3rem;
+	}
+	&_team_cards_container {
+		display: flex;
+		flex-direction: column;
+		gap: $padding_inline;
+	}
+	&_section_header {
+		padding-bottom: 1.563rem;
+		margin-bottom: 3rem;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	}
+	&_team_card {
+		height: 10rem;
+		border-radius: $border_radius;
+	}
+	.skeleton_title {
+		width: 25%;
+	}
+}
+
+.skeleton {
+	.section_header_content{
+		h4 {
+			width: 15rem;
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	.skeleton {
+		&_box-body {
+			padding: $padding_inline_mobile;
+		}
+	}
+}

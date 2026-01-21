@@ -1,0 +1,288 @@
+.login_page_container {
+  display: flex;
+  overflow: hidden;
+
+  &.authlayout {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.22fr;
+
+    &.verification {
+      grid-template-columns: 1fr;
+    }
+
+    .login_container {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+
+      &.verification {
+        justify-content: center;
+        align-items: center;
+
+        .login_form {
+          width: 50%;
+        }
+      }
+
+      .login_form {
+        // margin-top: 2rem;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        form {
+          gap: 2.5rem;
+          width: 70%;
+
+          .forget {
+            // margin-bottom: .75rem;
+            margin: 1rem 0 1.25rem;
+            align-self: flex-end;
+            width: fit-content;
+          }
+        }
+
+        .sign_text_container {
+          width: 70%;
+          margin-bottom: 2.5rem;
+
+          p {
+            margin-top: 0.7rem;
+            // font-size: 0.875rem;
+          }
+        }
+      }
+    }
+
+    .img-wrapper {
+      position: relative;
+
+      img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        inset: 0px;
+        color: transparent;
+        object-fit: cover;
+      }
+    }
+  }
+
+  &.change_password_page {
+    padding: 2rem 3rem;
+  }
+
+  .login_form {
+    width: 30%;
+
+    // margin-top: 4rem;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .field_wrapper_container {
+        padding: 0;
+      }
+
+      .form_button {
+        .button_container {
+          min-width: 100%;
+        }
+      }
+
+      .forget {
+        cursor: pointer;
+        text-decoration: underline;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 0.9rem;
+        text-align: end;
+      }
+    }
+
+    input {
+      padding-inline-end: 2.5em !important;
+      /* Change the white to any color */
+    }
+
+    &.change_password {
+
+      // width: 55%;
+      .input_group {
+        display: flex;
+        gap: 1.75rem;
+        align-items: center;
+
+        .field_wrapper_container {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .css-166bipr-Input {
+    input {
+      opacity: 0 !important;
+    }
+  }
+
+  .css-166bipr-Input:after {
+    margin-inline-start: 0rem;
+  }
+
+  .success {
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: 70%;
+    margin-inline: auto;
+
+    a {
+      width: 100%;
+
+      .button_container {
+        width: 95%;
+
+        span {
+          font-size: 1rem;
+          line-height: 1.6;
+          text-transform: none;
+        }
+      }
+    }
+
+    p {
+      opacity: 0.5;
+      margin-bottom: 1.7rem;
+    }
+  }
+
+  .error {
+    color: red;
+    margin-top: 1rem;
+    text-align: start;
+    width: 70%;
+  }
+
+  .forgot-password-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .error-container {
+    width: 70%;
+    margin-bottom: 1rem;
+  }
+  .success-container {
+    width: 70%;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .login_page_container {
+    &.authlayout {
+      display: flex;
+
+      .login_container {
+        height: 100%;
+  
+        .login_form {
+          width: 100%;
+
+          .sign_text_container {
+            width: 100%;
+          }
+
+          form {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    flex-direction: column;
+    padding: 0;
+    gap: 3rem;
+
+    .sign_text_container {
+      width: 100%;
+    }
+
+    .error {
+      width: 100%;
+    }
+  }
+  
+}
+
+@media (max-width: 700px) {
+  .login_page_container {
+    .error-container {
+      position: unset;
+      width: 100%;
+      margin-bottom: 0rem;
+      
+
+      .paragraph-button-container {
+        display: block;
+      }
+
+      p {
+        font-size: .875rem;
+      }
+
+      a {
+        font-size: .875rem;
+      }
+    }
+    .success-container {
+      position: unset;
+      width: 100%;
+      margin-bottom: 0rem;
+      
+
+      .paragraph-button-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      p {
+        font-size: .875rem;
+      }
+
+      a {
+        font-size: .875rem;
+      }
+    }
+
+    &.authlayout {
+      .login_container {
+        &.verification {
+          .login_form {
+            width: 100%;
+          }
+
+          .login_page_header {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

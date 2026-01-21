@@ -1,0 +1,14 @@
+.basic-info-skeleton{
+    .skeleton_flex{
+        border-bottom: $border;
+        margin-bottom: 2rem;
+    }
+    .react-loading-skeleton {
+        &.skeleton_image{
+            height: 9rem !important;
+        } 
+        &.skeleton_input{
+            height: 6rem !important;
+        }
+    }
+}

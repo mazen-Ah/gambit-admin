@@ -1,0 +1,117 @@
+.notifications{
+  .notifications-category{
+    margin-bottom: 1.5rem;
+    &:not(:last-child){
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    h4{
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .notifications-items{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      .notifications-item{
+        gap: 1rem;
+        width: 100%;
+        padding: 1.2rem 1rem;
+        transition: .3s;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+
+        .notifications-left{
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          font-size: 0.9rem;
+        }
+        .notifications-time{
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+        .notifications-dot{
+          width: 0.5rem;
+          height: 0.5rem;
+          border-radius: 50%;
+          background-color: $red;
+          &-container{
+            width: 0.5rem;
+          }
+        }
+        .submit_loading_container {
+          width: 1rem;
+          height: 1rem;
+        }
+        &.read{
+          background-color: #ececec;
+          border-radius: 8px;
+          opacity: .7;
+        }
+      }
+    }
+  }
+
+  .notifications-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2.4rem;
+
+    .notifications-mark{
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      svg{
+        padding-bottom: 1px;
+      }
+      .button_container span{
+        text-transform: none;
+      }
+      .mark_as_read{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .notifications{
+    .notifications-category{
+      h4{
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+      .notifications-items{
+        gap: .5rem;
+        .notifications-item{
+          flex-direction: column;
+          align-items: flex-start;
+          .notifications-time{
+            gap: .5rem;
+          }
+          .notifications-content{
+            padding-inline-start: 1rem;
+          }
+        }
+      }
+    }
+
+    .notifications-header{
+      flex-direction: column-reverse;
+      .notifications-mark{
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+  }
+}

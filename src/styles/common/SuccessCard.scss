@@ -1,0 +1,25 @@
+.success-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  align-items: center;
+  background-color: $success_bg;
+  margin: 0;
+  margin-bottom: 1.5rem;
+  // position: absolute;
+  h4 {
+    font-size: 1.25rem;
+  }
+  .paragraph-button-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    a {
+      text-decoration: underline;
+    }
+  }
+}

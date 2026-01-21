@@ -1,0 +1,40 @@
+.steps_header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	li {
+		width: 100%;
+		text-align: center;
+		padding: 0.85rem 0;
+		background-color: #fff;
+		color: #000;
+		transition: 0.2s all;
+		cursor: pointer;
+		border-bottom: $border;
+		border-inline-end: $border;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		opacity: .4;
+		span {
+			font-size: 0.8rem;
+			&:first-child {
+				font-size: 0.6rem;
+			}
+		}
+		&:first-child {
+			border-top-left-radius: $border_radius;
+		}
+		&:last-child {
+			border-inline-end: none;
+			border-top-right-radius: $border_radius;
+		}
+		&.active {
+			opacity: 1;
+		}
+		&.noCursor {
+			cursor: not-allowed;
+			opacity: 0.65;
+		}
+	}
+}

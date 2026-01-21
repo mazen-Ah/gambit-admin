@@ -1,0 +1,84 @@
+:lang(ar) {
+  @import './layout/AdminPanelHeader-rtl.scss';
+
+  direction: rtl;
+
+  .MuiSwitch-root {
+    transform: scaleX(-1) !important;
+  }
+
+  //pagination arrows
+  .css-g2z002-MuiSvgIcon-root-MuiPaginationItem-icon {
+    transform: rotate(180deg);
+  }
+
+  .close_icon {
+    right: unset;
+    left: 1.5rem;
+  }
+
+  svg {}
+  .filter-menu {
+    .comments-side {
+      left: 0;
+      right: unset;
+      transform: translateX(-100%);
+      &.open{
+        transform: translateX(0);
+
+      }
+    }
+  }
+
+  .admin_panel_header .normal_header .left-side .admin_data_btn .admin_data_drop_down {
+    right: unset;
+    left: 0;
+  }
+
+  .field_wrapper_container .input_wrapper .field {
+    .fixed-place-holder {
+      right: unset;
+      left: 1rem;
+    }
+
+    .tick {
+      right: unset;
+      left: 3rem;
+      &.showPassword {
+        left: 1.5rem;
+      }
+    }
+  }
+
+  .field_wrapper_container .input_wrapper .error {
+    // left: unset;
+    // right: 1.5rem;
+  }
+
+  .field_wrapper_container .input_wrapper .error-icon {
+    // right: unset;
+    // left: 1.5rem;
+  }
+
+  .sidemenu_wrapper {
+    .expand_btn {
+      svg {
+        transition: all ease-in-out 0.25s;
+        right: unset;
+        transform: rotate(180deg);
+        left: 0;
+      }
+
+      &.keep_expanded {
+        svg {
+          transform: rotate(0);
+        }
+      }
+    }
+  }
+
+  .css-j204z7-MuiFormControlLabel-root {
+    margin-right: -11px !important;
+    margin-left: 16px !important;
+  }
+}
