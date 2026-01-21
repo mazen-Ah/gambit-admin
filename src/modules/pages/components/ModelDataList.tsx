@@ -28,7 +28,7 @@ const ModelDataList: React.FC<ModelDataListProps> = ({
   const { t } = useTranslation();
 
   if (apiDataLoading) {
-    return <ModelDataSkeleton count={sectionModel == "vehicle_models" ? 2 : sectionModel == "variants" ? 3 : 1} />;
+    return <ModelDataSkeleton count={sectionModel === "vehicle_models" ? 2 : sectionModel === "variants" ? 3 : 1} />;
   }
 
   return (

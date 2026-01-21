@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import FormDynamicSkeleton from '../../../components/loaders/FormDynamicSkeleton';
 import useFormsIntegrationHelpers from '../../../hooks/useFormsIntegrationHelpers';
-import FormUpload from '../../../components/formInputs/FormUpload';
 
 const CreatePageForm = () => {
   const { id } = useParams();

@@ -1,11 +1,8 @@
-import { useTranslation } from 'react-i18next';
-
 const SuccessCard = ({
   title,
   description,
   icon
 }: { title: string, description: string, icon: JSX.Element }) => {
-  const { t } = useTranslation();
   return (
     <div className="success-card">
       <div className='success-icon'>

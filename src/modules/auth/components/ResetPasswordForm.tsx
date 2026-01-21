@@ -5,18 +5,14 @@ import * as Yup from 'yup';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Button from '../../../components/buttons/Button';
-import { Link, useSearchParams, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import TextContainer from './TextContainer';
 import { IUserData } from '../types/Interfaces';
 import { loginPostRequest, verificationPostRequest } from '../API/api';
-import { useDispatch } from 'react-redux';
-import { setUserData, setUserPermissions, setUserRoles, setUserToken } from '../store/redux/authData';
 import { useTranslation } from 'react-i18next';
-import ErrorCard from '../../../components/layout/ErrorCard';
 
 const ResetPasswordForm = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
   const { id } = useParams();
 
   const { t } = useTranslation();
@@ -31,7 +27,7 @@ const ResetPasswordForm = () => {
       .matches(/[A-Z]/, t("must_contain_uppercase"))
       .matches(/[a-z]/, t("must_contain_lowercase"))
       .matches(/\d/, t("must_contain_number"))
-      .matches(/[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>/?`~]/, t("must_contain_special_char")),
+      .matches(/[!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?`~]/, t("must_contain_special_char")),
     password_confirmation: Yup.string()
       .required(t("required"))
       .oneOf([Yup.ref("password")], t("passwords_mismatch")),

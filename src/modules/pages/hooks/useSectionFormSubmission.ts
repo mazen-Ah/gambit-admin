@@ -13,16 +13,13 @@ export const useSectionFormSubmission = ({ pageData, id, handleSubmit, parentTyp
   const transformSectionData = useCallback(
     (section: any, sectionIndex: number, isSubSection: boolean = false, parentSectionData?: any) => {
       // For sub-sections, find the specific sub-section in parent's sub_sections array and use its media
-      let mediaSource: any[] = [];
       let originalSectionData: any = null;
 
       if (isSubSection && parentSectionData?.sub_sections) {
         const foundSubSection = parentSectionData.sub_sections.find((subSec: any) => subSec.id === section.id);
-        mediaSource = foundSubSection?.media || [];
         originalSectionData = foundSubSection;
       } else {
         const foundSection = pageData?.sections.find((sec: any) => sec.id === section.id);
-        mediaSource = foundSection?.media || [];
         originalSectionData = foundSection;
       }
 
