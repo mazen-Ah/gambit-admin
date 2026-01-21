@@ -1,23 +1,17 @@
-import Cookies from 'js-cookie';
 import FieldWrapper from '../../../components/formInputs/FieldWrapper';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
 import Button from '../../../components/buttons/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TextContainer from './TextContainer';
-import { IUserData } from '../types/Interfaces';
-import { forgotPasswordPostRequest, loginPostRequest } from '../API/api';
-import { useDispatch } from 'react-redux';
-import { setUserData, setUserPermissions, setUserRoles, setUserToken } from '../store/redux/authData';
+import { forgotPasswordPostRequest } from '../API/api';
 import { useTranslation } from 'react-i18next';
 import ErrorCard from '../../../components/layout/ErrorCard';
 import SuccessCard from './SuccessCard';
 import { emailIcon } from '../../../config/variables';
 
 const ForgotPasswordForm = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const [loading, setLoading] = useState(false);

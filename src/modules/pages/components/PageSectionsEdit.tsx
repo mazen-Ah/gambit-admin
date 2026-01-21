@@ -65,11 +65,12 @@ export default function PageSectionsEdit({ parentModuleType, id, parentType, dat
     handleSubSectionExpanded
   });
 
+  const sectionsLength = data?.sections?.length;
   useEffect(() => {
-    if(!data?.sections?.length) {
+    if(!sectionsLength) {
       setExpanded(-1);
     }
-  }, [data?.sections?.length])
+  }, [sectionsLength])
 
   // Update Formik values when data changes to ensure initial values are set
   useEffect(() => {

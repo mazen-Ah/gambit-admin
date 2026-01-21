@@ -15,12 +15,6 @@ import ErrorCard from '../../../components/layout/ErrorCard';
 import { generalGet } from '../../../API/api';
 import { useQuery } from '@tanstack/react-query';
 
-interface IClient {
-  code: string;
-  name: string;
-  description: string;
-}
-
 const LoginForm = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();

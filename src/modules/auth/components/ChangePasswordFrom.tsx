@@ -43,7 +43,7 @@ const ChangePasswordForm = () => {
             .matches(/[A-Z]/, t("must_contain_uppercase"))
             .matches(/[a-z]/, t("must_contain_lowercase"))
             .matches(/\d/, t("must_contain_number"))
-            .matches(/[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>/?`~]/, t("must_contain_special_char")),
+            .matches(/[!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?`~]/, t("must_contain_special_char")),
         password_confirmation: Yup.string()
             .required(t("required"))
             .oneOf([Yup.ref("password")], t("passwords_mismatch")),

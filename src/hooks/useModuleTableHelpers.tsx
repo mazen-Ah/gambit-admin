@@ -109,13 +109,14 @@ export default function useModuleTableHelpers({
         ...(filters || {})
       })}`
     );
-  }, [selectedPerPage, filters, route]);
+  }, [selectedPerPage, filters, route, extraParams, withPagination]);
 
+  const apiDataLength = apiData?.length;
   const paginationEle = useMemo(() => {
     if (metaData && withPagination) {
       return (
         <Stack spacing={2} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: '1rem' }}>
-          {!!apiData?.length && (
+          {!!apiDataLength && (
             <div className="" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               {t('rowsPerPage')}{' '}
               <Select
@@ -142,7 +143,7 @@ export default function useModuleTableHelpers({
     }
 
     return null;
-  }, [handleChange, metaData, page, selectedPerPage, t, withPagination]);
+  }, [handleChange, metaData, page, selectedPerPage, t, withPagination, apiDataLength]);
 
   const searchEle = useMemo(() => {
     if (withSearch) {
@@ -150,7 +151,7 @@ export default function useModuleTableHelpers({
     }
 
     return null;
-  }, [withSearch, customSearchPlaceholder]);
+  }, [withSearch, customSearchPlaceholder, noFilterDuration]);
 
   return {
     filters,
