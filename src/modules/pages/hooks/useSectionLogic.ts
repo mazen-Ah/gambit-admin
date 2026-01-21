@@ -67,7 +67,7 @@ export const useSectionLogic = ({ index, namePref, subSection, arrayHelpers, onS
         onSectionAdded?.(newIndex);
       }, 50);
     }
-  }, [sectionData, arrayHelpers, index, subSection, namePref]);
+  }, [sectionData, arrayHelpers, index, subSection, namePref, onSectionAdded]);
 
   const handleExpand = useCallback((e: React.SyntheticEvent, expanded: number, setExpanded: React.Dispatch<React.SetStateAction<number>>) => {
     e.stopPropagation();

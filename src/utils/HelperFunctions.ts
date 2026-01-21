@@ -21,7 +21,7 @@ export const searchFilterLogic = (props: any) => {
         }
       }
       const result =
-        value?.toString().toLowerCase().includes(searchInput.toLowerCase()) && (!dropdownValue || item?.[dropdownKey]?.some((category: any) => category?.id == dropdownValue));
+        value?.toString().toLowerCase().includes(searchInput.toLowerCase()) && (!dropdownValue || item?.[dropdownKey]?.some((category: any) => category?.id === dropdownValue));
       return result;
     })
   );
@@ -280,8 +280,8 @@ export function scrollToAccordionError(
               const fieldSelectors = [
                 `[name="${firstErrorField}"]`,
                 `[name="${firstErrorField.replace(/\[(\d+)\]/g, '.$1')}"]`,
-                `.field-${firstErrorField.replace(/[\[\].]/g, '-')}`,
-                `#field-${firstErrorField.replace(/[\[\].]/g, '-')}`
+                `.field-${firstErrorField.replace(/[[\].]/g, '-')}`,
+                `#field-${firstErrorField.replace(/[[\].]/g, '-')}`
               ];
 
               for (const selector of fieldSelectors) {

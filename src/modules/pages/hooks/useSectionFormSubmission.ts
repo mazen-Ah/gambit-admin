@@ -64,18 +64,7 @@ export const useSectionFormSubmission = ({ pageData, id, handleSubmit, parentTyp
 
       // Transform images_desktop and images_mobile
       // Convert string URLs to IDs, keep File objects as-is
-      const transformImages = (images: any[]) => {
-        if (!images || !Array.isArray(images)) return [];
-        return images.map((image: string | File) => {
-          if (typeof image === 'string') {
-            // Find the media item by URL and return its ID
-            const mediaItem = mediaSource?.find((ele: any) => ele?.url === image);
-            return mediaItem?.id || image;
-          }
-          // If it's a File object, return it as-is
-          return image;
-        });
-      };
+      // Note: transformImages function removed as it was unused
 
       const imagesDesktop = Array.isArray(section?.images_desktop) ? section.images_desktop : (section?.images_desktop ? [section.images_desktop] : []);
       const imagesMobile = Array.isArray(section?.images_mobile) ? section.images_mobile : (section?.images_mobile ? [section.images_mobile] : []);
@@ -177,12 +166,7 @@ export const useSectionFormSubmission = ({ pageData, id, handleSubmit, parentTyp
       };
 
       // Remove fields that should not be sent to API (buttons are now in content, not at top level)
-      const fieldsToRemove = ['images', 'buttons', 'has_button', 'button_type', 'button_text', 'button_data'];
-      // fieldsToRemove.forEach(field => {
-      //   if (field in transformedSection) {
-      //     delete transformedSection[field];
-      //   }
-      // });
+      // Note: fieldsToRemove variable removed as it was unused
       console.log(transformedSection, "transformedSection");
 
       return transformedSection;

@@ -96,7 +96,7 @@ const ModelItem: React.FC<ModelItemProps> = ({ modelItem, index, sectionName, se
     if (makesOptions?.length === 1) {
       formik.setFieldValue(`${sectionName}.model_data[${index}].make_id`, makesOptions[0].value);
     }
-  }, [makesOptions]);
+  }, [makesOptions, formik, index, sectionName]);
 
   const stableId = `model-${modelItem.stableId}`;
 
@@ -278,7 +278,7 @@ const ModelItem: React.FC<ModelItemProps> = ({ modelItem, index, sectionName, se
               inputName={`${sectionName}.model_data[${index}].model_id`}
               options={articlesOptions}
               selectStyle={customStyles}
-              value={articlesOptions?.filter((item: any) => item.value == modelItem.model_id)}
+              value={articlesOptions?.filter((item: any) => item.value === modelItem.model_id)}
               select
               formik={formik}
               disabled={isPreview}

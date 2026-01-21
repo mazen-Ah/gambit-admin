@@ -24,8 +24,10 @@ export default function PageSectionModels({ subSection, sectionName, hasRelation
       { label: t('articles'), value: 'articles' },
       { label: t('links.vehicle_offers'), value: 'vehicle_offers' }
     ],
-    []
+    [t]
   );
+
+  const modelValue = getIn(formik?.values, `${sectionName}.model`);
 
   useEffect(() => {
     if (firstRender) {
@@ -34,7 +36,7 @@ export default function PageSectionModels({ subSection, sectionName, hasRelation
     }
     formik?.setFieldValue(
       `${sectionName}.model_data`,
-      getIn(formik?.values, `${sectionName}.model`)
+      modelValue
         ? [
             {
               model_id: '',
@@ -48,7 +50,7 @@ export default function PageSectionModels({ subSection, sectionName, hasRelation
           ]
         : []
     );
-  }, [getIn(formik?.values, `${sectionName}.model`)]);
+  }, [modelValue, firstRender, formik, sectionName]);
 
   return (
     <SectionHeader title={""} customStyle='padding_bottom'>
