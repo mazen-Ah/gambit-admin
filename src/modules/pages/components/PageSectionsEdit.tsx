@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import PageSection from './PageSection';
 import AccordionDragPreview from './AccordionDragPreview';
-import { FieldArray, Form, Formik, FormikProps } from 'formik';
+import { FieldArray, Form, Formik, FormikProps, setNestedObjectValues } from 'formik';
 import Button from '../../../components/buttons/Button';
 import { plusIcon } from '../../../config/variables';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,9 @@ import { useSectionInitialValues, createNewSection } from '../hooks/useSectionIn
 import { useSectionFormSubmission } from '../hooks/useSectionFormSubmission';
 import { useSectionErrorHandling } from '../hooks/useSectionErrorHandling';
 import { useSubSectionManagement } from '../hooks/useSubSectionManagement';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { scrollToAccordionError } from '../../../utils/HelperFunctions';
+import { generalGet } from '../../../API/api';
 
 export default function PageSectionsEdit({ parentModuleType, id, parentType, data, getDataLoading, queryKey }: { parentModuleType?: string, id?: string, parentType?: string, data?: any, getDataLoading?: boolean, queryKey: string }) {
   const [expanded, setExpanded] = useState(0);
@@ -21,7 +23,7 @@ export default function PageSectionsEdit({ parentModuleType, id, parentType, dat
   const { t } = useTranslation();
   const formContainerRef = useRef(null);
   const formikRef = useRef<FormikProps<any>>(null);
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const {
     subSectionExpanded,
@@ -29,7 +31,7 @@ export default function PageSectionsEdit({ parentModuleType, id, parentType, dat
     registerSubSectionCallback
   } = useSubSectionManagement();
 
-  const { handleSubmit, submitLoading } = useFormsIntegrationHelpers({
+  const { handleSubmit: originalHandleSubmit, submitLoading } = useFormsIntegrationHelpers({
     id,
     editApi: `/cms/admin/sections-group`,
     itemName: t('sections'),
@@ -40,9 +42,96 @@ export default function PageSectionsEdit({ parentModuleType, id, parentType, dat
     }
   });
 
-  const validationSchema = useMemo(() => createSectionValidationSchema(t), [t]);
+  // Handle backend validation errors
+  const handleBackendErrors = useCallback((errors: any, setErrors?: (errors: any) => void) => {
+    if (!errors || !formikRef.current) return;
+
+    // Ensure error array length matches values array length
+    const errorsToSet = JSON.parse(JSON.stringify(errors));
+    if (errorsToSet.sections && Array.isArray(errorsToSet.sections) && formikRef.current.values?.sections) {
+      const valuesLength = formikRef.current.values.sections.length;
+      while (errorsToSet.sections.length < valuesLength) {
+        errorsToSet.sections.push(null);
+      }
+    }
+
+    // Set errors
+    if (setErrors) {
+      setErrors(errorsToSet);
+    }
+    formikRef.current.setErrors(errorsToSet);
+
+    // Build touched structure from errors
+    const buildTouched = (obj: any): any => {
+      if (Array.isArray(obj)) {
+        return obj.map(item => {
+          if (item === null) return null;
+          if (Array.isArray(item) && item.length > 0 && typeof item[0] === 'string') {
+            return true;
+          }
+          return typeof item === 'object' ? buildTouched(item) : true;
+        });
+      }
+      
+      if (!obj || typeof obj !== 'object') return {};
+      
+      const touched: any = {};
+      Object.keys(obj).forEach(key => {
+        const value = obj[key];
+        if (Array.isArray(value)) {
+          if (value.length > 0 && typeof value[0] === 'string') {
+            touched[key] = true;
+          } else {
+            touched[key] = buildTouched(value);
+          }
+        } else if (value && typeof value === 'object') {
+          touched[key] = buildTouched(value);
+        }
+      });
+      return touched;
+    };
+
+    const touched = buildTouched(errorsToSet);
+    formikRef.current.setTouched(touched, false);
+
+    setHasSubmitted(true);
+    
+    if (errorsToSet.sections && formikRef.current.values.sections) {
+      scrollToAccordionError(true, formContainerRef, errorsToSet, formikRef.current.values.sections, setExpanded, handleSubSectionExpanded);
+    }
+  }, [setExpanded, handleSubSectionExpanded]);
+
+  const wrappedHandleSubmit = useCallback((values: any, setErrors?: any) => {
+    return originalHandleSubmit(values, (errors: any) => {
+      if (errors) {
+        handleBackendErrors(errors, setErrors);
+      }
+    });
+  }, [originalHandleSubmit, handleBackendErrors]);
+
+  // Fetch section types for dynamic validation
+  const { data: sectionTypesData } = useQuery({
+    queryKey: ['section-types'],
+    queryFn: () => generalGet('/cms/admin/section-types?per_page=1000'),
+    refetchOnWindowFocus: false,
+  });
+
+  const validationSchema = useMemo(() => {
+    const sectionTypes = sectionTypesData?.data?.data || [];
+    return createSectionValidationSchema(t, sectionTypes);
+  }, [t, sectionTypesData]);
   const initialValues = useSectionInitialValues(data, parentModuleType);
-  const { handleFormSubmit } = useSectionFormSubmission({ id, handleSubmit, pageData: {...data}, parentType });
+  const { handleFormSubmit: originalHandleFormSubmit } = useSectionFormSubmission({ 
+    id, 
+    handleSubmit: wrappedHandleSubmit, 
+    pageData: {...data}, 
+    parentType 
+  });
+
+  // Wrap handleFormSubmit to pass setErrors from Formik
+  const handleFormSubmit = useCallback((values: any, formikHelpers: any) => {
+    return originalHandleFormSubmit(values, formikHelpers.setErrors);
+  }, [originalHandleFormSubmit]);
 
   // Memoize initial values key to force Formik reinitialization when data changes
   const initialValuesKey = useMemo(() => {
@@ -81,8 +170,6 @@ export default function PageSectionsEdit({ parentModuleType, id, parentType, dat
         setTimeout(() => {
           if (formikRef.current) {
             formikRef.current.setValues(initialValues);
-            formikRef.current.setTouched({});
-            formikRef.current.setErrors({});
           }
         }, 0);
       }
@@ -90,7 +177,6 @@ export default function PageSectionsEdit({ parentModuleType, id, parentType, dat
   }, [data, initialValues, initialValuesKey]);
 
   if (getDataLoading) return <FormSkeleton />;
-console.log(initialValues, "initialValues");
 
   return (
     <div ref={formContainerRef} className='accordions-container'>

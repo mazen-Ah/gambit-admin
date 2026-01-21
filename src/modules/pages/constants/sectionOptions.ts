@@ -60,7 +60,7 @@ export const getButtonTypeOptions = (t: TFunction) => [
 ];
 
 export const DEFAULT_SUB_SECTION = {
-  name: "",
+  name: { en: '', ar: '' },
   order: 0,
   key: 0,
   type: "",

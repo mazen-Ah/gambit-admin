@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useDrag, useDrop } from 'react-dnd';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { useField } from 'formik';
+import { useField, ErrorMessage, getIn } from 'formik';
 import { deleteIcon, fileIcon, uploadIcon } from '../../config/variables';
 import { IMAGE_SIZE_LIMIT } from '../../utils/constants';
 
@@ -22,7 +22,14 @@ const FormGalleryUpload = (props: IFormUpload) => {
 const FormGalleryUploadContent = ({ errors, formik, name, label, touched, disabled }: IFormUpload) => {
   const [error, setError] = useState<string>();
   const { t } = useTranslation();
-  const [field, , helpers] = useField({ name: name });
+  const [field, meta, helpers] = useField({ name: name });
+  
+  // Get error from Formik if not passed as prop
+  const fieldError = errors || (meta.touched && meta.error ? meta.error : '');
+  const fieldTouched = touched !== undefined ? touched : meta.touched;
+  
+  // Apply error styling when there's an error
+  const hasError = (fieldError || meta.error) && (fieldTouched || meta.touched);
   const filesFormat = useMemo(() => {
     return [
       'image/jpeg',
@@ -89,7 +96,7 @@ const FormGalleryUploadContent = ({ errors, formik, name, label, touched, disabl
         </div>
       )}
       <div
-        className={`drag-image-container gallery multiple ${field.value?.length > 0 ? 'hasFile' : ''} ${field.value?.length > 0 && 'images-added build-form'} ${errors && touched && 'drag-error-container'} ${disabled ? 'disabled default-cursor' : ''}`}
+        className={`drag-image-container gallery multiple ${field.value?.length > 0 ? 'hasFile' : ''} ${field.value?.length > 0 && 'images-added build-form'} ${hasError && 'drag-error-container'} ${disabled ? 'disabled default-cursor' : ''}`}
       >
         {field.value?.length > 0 && (
           <div className="images-wrapper">
@@ -139,8 +146,9 @@ const FormGalleryUploadContent = ({ errors, formik, name, label, touched, disabl
           )
         )}
       </div>
-      {errors && touched && !error && <p className="drag-error">{errors}</p>}
-      {error && <p className="drag-error builder">{error}</p>}
+      <p className="drag-error builder">
+        {error || (formik && name ? <ErrorMessage name={name} /> : (fieldError && fieldTouched ? fieldError : ''))}
+      </p>
     </div>
   );
 };

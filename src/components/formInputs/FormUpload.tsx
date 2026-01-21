@@ -3,14 +3,15 @@ import { useDropzone } from 'react-dropzone';
 import { IFormUpload } from '../../types/Interfaces';
 import { useTranslation } from 'react-i18next';
 import { deleteIcon, editIcon, fileIcon } from '../../config/variables';
-import { ErrorMessage, getIn } from 'formik';
+import { ErrorMessage, getIn, useFormikContext } from 'formik';
 import { convertFilesToBase64, createFileList } from '../../utils/HelperFunctions';
 import Button from '../buttons/Button';
 import ExportExcel from '../buttons/ExportExcel/ExportExcel';
 import { FILE_SIZE_LIMIT, IMAGE_SIZE_LIMIT, VIDEO_SIZE_LIMIT } from '../../utils/constants';
 
-const FormUpload = ({ video, errors, value, formik, customTypes, name, touched, fileName, label, file, disabled }: IFormUpload) => {
+const FormUpload = ({ video, value, customTypes, name, fileName, label, file, disabled }: IFormUpload) => {
   const [error, setError] = useState<string>();
+  const formik = useFormikContext();
   const [innerShownFile, setInnerShownFile] = useState<any>(formik && name ? getIn(formik.values, name) : value || null);
   const { t } = useTranslation();
   const [singleFileType, setSingleFileType] = useState<string>('');
@@ -20,6 +21,9 @@ const FormUpload = ({ video, errors, value, formik, customTypes, name, touched, 
     ? ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg+xml', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
     : ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/svg+xml'];
 
+  const errors = formik && name ? getIn(formik.errors, name) : '';
+  const touched = formik && name ? getIn(formik.touched, name) : '';
+    
   useEffect(() => {
     if (value) setInnerShownFile(value);
   }, [value]);

@@ -47,7 +47,7 @@ export default function useFormsIntegrationHelpers({
   const queryClient = useQueryClient();
 
   const { data, isSuccess, isLoading } = useQuery({
-    queryKey: [...(queryKey || [] || '')],
+    queryKey: [...(queryKey || [])],
     queryFn: () => (singleGetApi ? generalGet(singleGetApi) : ''),
     enabled: !!id && !!singleGetApi && !!queryKey,
     refetchOnWindowFocus: refetchOnWindowFocus

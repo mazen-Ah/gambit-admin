@@ -101,13 +101,18 @@ export const useSectionInitialValues = (apiData: any, parentModuleType?: string)
       // Get first button for legacy fields
       const firstButton = processedButtons.length > 0 ? processedButtons[0] : null;
 
+      // Handle name - can be string or object {en, ar}
+      const sectionName = typeof section?.name === 'object' && section?.name !== null
+        ? { en: section.name.en || '', ar: section.name.ar || '' }
+        : { en: section?.name || '', ar: section?.name || '' };
+
       return {
         ...section,
         key: index + 1 || '',
         parent_module_type: isSubSection ? null : parentModuleType,
         disabled: section.disabled ? 1 : 0,
-        type: sectionType,
-        name: { en: section?.name, ar: section?.name },
+        type: sectionType || '',
+        name: sectionName,
         content: {
           title: { en: section?.content?.title?.en || '', ar: section?.content?.title?.ar || '' },
           subtitle: { en: section?.content?.subtitle?.en || '', ar: section?.content?.subtitle?.ar || '' },
@@ -148,7 +153,7 @@ export const useSectionInitialValues = (apiData: any, parentModuleType?: string)
     }
 
     return {
-      sections: [...(apiData?.sections?.map((ele: any, index: number) => handleSectionInitial(ele, false, index)) || [])]
+      sections: [...(apiData?.sections?.sort((a: any, b: any) => a.order - b.order)?.map((ele: any, index: number) => handleSectionInitial(ele, false, index)) || [])]
     };
   }, [apiData, parentModuleType]);
 };
@@ -157,7 +162,7 @@ export const createNewSection = (sectionsLength: number, parentModuleType?: stri
   ...DEFAULT_SUB_SECTION,
   order: sectionsLength + 1,
   key: sectionsLength + 1,
-  name: '',
+  name: { en: '', ar: '' },
   type: '',
   sub_sections: [],
   parent_module_type: parentModuleType

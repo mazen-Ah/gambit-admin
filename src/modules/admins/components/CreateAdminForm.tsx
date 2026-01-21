@@ -223,8 +223,6 @@ const CreateAdminForm = () => {
                     onChange={(event: SelectChangeEvent<string[]>) => handleRoleChange(event, formik)}
                     options={rolesData?.data?.data || []}
                     selectedLabels={selectedRolesName}
-                    error={formik.errors.roles}
-                    touched={formik.touched.roles}
                     placeholder={t('select-roles')}
                     customIcon={<CustomArrowIcon onClick={() => setOpenRoles(!openRoles)} />}
                     open={openRoles}

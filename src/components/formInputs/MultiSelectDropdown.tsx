@@ -15,6 +15,7 @@ import {
     MuiMultiSelectControlStyles
 } from '../../utils/SelectStyles';
 import { useTranslation } from 'react-i18next';
+import { getIn, useFormikContext } from 'formik';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -50,8 +51,6 @@ const MultiSelectDropdown = ({
     onChange,
     options,
     selectedLabels,
-    error,
-    touched,
     placeholder,
     customIcon,
     open,
@@ -64,6 +63,12 @@ const MultiSelectDropdown = ({
     const handleOpen = () => setOpen?.(true);
     const handleClose = () => setOpen?.(false);
     const { t } = useTranslation();
+
+    const formik = useFormikContext<any>();
+    
+    const error = getIn(formik.errors, name)
+    const touched = getIn(formik.touched, name)
+
     return (
         <div className={`field_wrapper_container ${noPadding ? 'no-padding' : ''} grid-${gridSize}`} style={customStyles || {}}>
             <div className={`multi-select-wrapper input_wrapper w-full `}>

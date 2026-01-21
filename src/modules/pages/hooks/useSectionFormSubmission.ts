@@ -4,7 +4,7 @@ import { IPage, ISection } from '../types/interfaces';
 interface UseSectionFormSubmissionProps {
   pageData: IPage;
   id: string | undefined;
-  handleSubmit: (values: any) => void;
+  handleSubmit: (values: any, setErrors?: (errors: any) => void) => void;
   parentType?: string;
 }
 
@@ -181,7 +181,7 @@ export const useSectionFormSubmission = ({ pageData, id, handleSubmit, parentTyp
   );
 
   const handleFormSubmit = useCallback(
-    (values: any) => {
+    (values: any, setErrors?: (errors: any) => void) => {
       const transformedValues = transformFormValues(values);
 
       // Normalize order values to ensure they're sequential and unique
@@ -232,7 +232,7 @@ export const useSectionFormSubmission = ({ pageData, id, handleSubmit, parentTyp
       }
       console.log(transformedValues, "transformedValues");
 
-      handleSubmit(transformedValues);
+      handleSubmit(transformedValues, setErrors);
     },
     [transformFormValues, handleSubmit]
   );

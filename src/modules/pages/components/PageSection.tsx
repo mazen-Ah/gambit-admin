@@ -2,8 +2,7 @@ import { Accordion, AccordionDetails } from '@mui/material';
 import React, { Fragment, memo, useCallback, useMemo, useEffect } from 'react';
 import { ISection } from '../types/interfaces';
 import { useTranslation } from 'react-i18next';
-import { FieldArrayRenderProps, getIn, ErrorMessage } from 'formik';
-import { customStyles } from '../../../utils/SelectStyles';
+import { FieldArrayRenderProps, getIn } from 'formik';
 import PageSubSections from './PageSubSections';
 import ModalContainer from '../../../components/ModalContainer';
 import DeleteModal from '../../../components/DeleteModal';
@@ -17,7 +16,7 @@ import { useSectionLogic } from '../hooks/useSectionLogic';
 import { getSectionTypeOptions } from '../constants/sectionOptions';
 import { useQuery } from '@tanstack/react-query';
 import { generalGet } from '../../../API/api';
-import Select from 'react-select';
+import { SectionTypeSelector } from '../../../components/formInputs/SectionTypeSelector';
 
 const PageSection = memo(function PageSection({
   data,
@@ -57,7 +56,6 @@ const PageSection = memo(function PageSection({
     onSectionAdded: setExpanded,
     onSectionRemoved: () => setExpanded(-1)
   });
-
   
   const deleteRoute = `/cms/admin/sections`;
   
@@ -90,94 +88,6 @@ const PageSection = memo(function PageSection({
     }));
   }, [sectionTypesSuccess, sectionTypesData, t, i18n?.language]);
 
-  // Custom styles for section type select with images - clean design
-  const sectionTypeSelectStyles = useMemo(() => ({
-    ...customStyles,
-    control: (provided: any, state: any) => ({
-      ...customStyles.control(provided, state),
-      minHeight: '4.5rem',
-      height: 'auto',
-      padding: '0.5rem 1rem',
-      border: '1px solid #e0e0e0',
-      boxShadow: 'none',
-      '&:hover': {
-        borderColor: '#d0d0d0',
-      },
-    }),
-    valueContainer: (provided: any, state: any) => ({
-      ...customStyles.valueContainer(provided, state),
-      padding: '0.25rem 0',
-    }),
-    singleValue: (provided: any, state: any) => ({
-      ...customStyles.singleValue(provided, state),
-      display: 'flex',
-      alignItems: 'center',
-      gap: '1rem',
-      fontSize: '0.9rem',
-      fontWeight: '500',
-      width: '100%',
-      margin: 0,
-    }),
-    option: (provided: any, state: any) => ({
-      ...customStyles.option(provided, state),
-      padding: '1rem',
-      minHeight: '8rem',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '1.25rem',
-      fontSize: '0.9rem',
-      fontWeight: '500',
-      marginBottom: '0.5rem',
-      borderRadius: '10px',
-      border: state.isSelected ? '2px solid #000' : '1px solid transparent',
-      backgroundColor: state.isSelected 
-        ? '#000' 
-        : state.isFocused 
-          ? 'rgba(0, 0, 0, 0.05)' 
-          : '#fff',
-      color: state.isSelected ? '#fff' : '#000',
-      transition: 'all 0.2s ease',
-      '&:hover': {
-        backgroundColor: state.isSelected ? '#000' : 'rgba(0, 0, 0, 0.05)',
-        borderColor: state.isSelected ? '#000' : '#d0d0d0',
-      },
-    }),
-    menuList: (provided: any, state: any) => ({
-      ...customStyles.menuList(provided, state),
-      maxHeight: '32rem',
-      padding: '0.75rem',
-    }),
-    menu: (provided: any, state: any) => ({
-      ...customStyles.menu(provided, state),
-      minWidth: '28rem',
-      borderRadius: '12px',
-      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
-      border: '1px solid #e0e0e0',
-    }),
-  } as any), []);
-
-  // Format option label - Professional card-based design
-  const formatOptionLabel = useCallback(({ label, data }: any) => {
-    const image = data?.image;
-    return (
-      <div className="section-type-option">
-        {image && (
-          <div className="section-type-option__image">
-            <img 
-              src={image} 
-              alt={label}
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-              }}
-            />
-          </div>
-        )}
-        <div className="section-type-option__content">
-          <span className="section-type-option__label">{label}</span>
-        </div>
-      </div>
-    );
-  }, []);
 
   // Get type from Formik values using sectionName (works for both parent and sub-sections)
   const formikType = useMemo(() => {
@@ -219,11 +129,6 @@ const PageSection = memo(function PageSection({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSectionTypeData?.has_buttons, sectionName]);
 
-  // Get current selected option for the dropdown from Formik values
-  const selectedSectionType = useMemo(() => {
-    if (!formikType) return null;
-    return sectionTypeOptions.find((option: any) => option.value === formikType) || null;
-  }, [formikType, sectionTypeOptions]);
 
   const handleAccordionChange = useCallback(
     (e: React.SyntheticEvent) => {
@@ -231,7 +136,6 @@ const PageSection = memo(function PageSection({
     },
     [handleExpand, expanded, setExpanded]
   );
-console.log(currentSectionTypeData, "currentSectionTypeData");
 
   return (
     <Fragment>
@@ -269,21 +173,16 @@ console.log(currentSectionTypeData, "currentSectionTypeData");
                   </div>
                   <div className="input_wrapper">
                     <div className="field">
-                      <Select
+                      <SectionTypeSelector
                         options={sectionTypeOptions}
-                        placeholder={t('section_type')}
-                        className="react-select-container section-type-select"
-                        classNamePrefix="react-select"
-                        styles={sectionTypeSelectStyles}
-                        value={selectedSectionType}
-                        onChange={(selectedOption: any) => {
-                          formik.setFieldValue(`${sectionName}.type`, selectedOption?.value || '');
+                        value={formikType}
+                        onChange={(value) => {
+                          formik.setFieldValue(`${sectionName}.type`, value || '');
                         }}
-                        formatOptionLabel={formatOptionLabel}
-                        isSearchable
-                        noOptionsMessage={() => t('no_options')}
+                        placeholder={t('section_type')}
+                        formik={formik}
+                        inputName={`${sectionName}.type`}
                       />
-                      <ErrorMessage name={`${sectionName}.type`} component="div" className="error" />
                     </div>
                   </div>
                 </div>

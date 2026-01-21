@@ -7,7 +7,7 @@ const Button = ({ text, customClass, type, children, onClick, disabled, loading,
   return (
     <button
       className={`button_container  ${disabled && 'disabled'} ${loading && 'loading'} ${customClass && customClass}`}
-      type={type && type}
+      type={type || undefined}
       onClick={(e: any) => {
         if(disabled || loading) return;
         commentBtn && e.stopPropagation();
