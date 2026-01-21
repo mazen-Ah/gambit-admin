@@ -1,9 +1,8 @@
 import Cookies from 'js-cookie';
 import FieldWrapper from '../../../components/formInputs/FieldWrapper';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useState, useEffect, Fragment } from 'react';
-import { toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
 import Button from '../../../components/buttons/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import TextContainer from './TextContainer';
@@ -13,11 +12,8 @@ import { useDispatch } from 'react-redux';
 import { setUserData, setUserPermissions, setUserRoles, setUserToken } from '../store/redux/authData';
 import { useTranslation } from 'react-i18next';
 import ErrorCard from '../../../components/layout/ErrorCard';
-import { set } from 'date-fns';
 import { generalGet } from '../../../API/api';
 import { useQuery } from '@tanstack/react-query';
-import { customStyles } from '../../../utils/SelectStyles';
-import InputSkeleton from '../../../components/loaders/InputSkeleton';
 
 interface IClient {
   code: string;
@@ -31,7 +27,6 @@ const LoginForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const [clients, setClients] = useState<Array<{ label: string; value: string }>>([]);
   const [isMultiMarket, setIsMultiMarket] = useState(false);
   const dispatch = useDispatch();
   const hostname = window.location.hostname;
@@ -55,16 +50,9 @@ const LoginForm = () => {
     localStorage.setItem('user_roles', JSON.stringify(data));
   };
 
-  const handleClientChange = (selectedOption: { label: string; value: string } | undefined) => {
-    if (selectedOption) {
-      Cookies.set('market', selectedOption.value);
-    }
-  };
-
   const {
     data: clientsData,
-    isSuccess: clientsIsSuccess,
-    isLoading: clientsIsLoading
+    isSuccess: clientsIsSuccess
   } = useQuery({
     queryKey: ['clients-by-domain', hostname],
     queryFn: () => generalGet(`/clients/by-domain?domain=${hostname}`),
@@ -74,12 +62,6 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (clientsIsSuccess && clientsData?.data?.code === 200 && clientsData?.data?.data?.clients) {
-      const apiClients = clientsData.data.data.clients;
-      const clientOptions = apiClients.map((client: IClient) => ({
-        label: client.name,
-        value: client.code
-      }));
-      setClients(clientOptions);
       setIsMultiMarket(clientsData.data.data.is_multi_market || false);
     }
   }, [clientsIsSuccess, clientsData]);

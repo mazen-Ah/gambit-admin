@@ -1,14 +1,12 @@
-import Cookies from 'js-cookie';
 import FieldWrapper from '../../../components/formInputs/FieldWrapper';
-import { ErrorMessage, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Button from '../../../components/buttons/Button';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import TextContainer from './TextContainer';
-import { IUserData } from '../types/Interfaces';
-import { loginPostRequest, verificationPostRequest } from '../API/api';
+import { verificationPostRequest } from '../API/api';
 import { useTranslation } from 'react-i18next';
 
 const ResetPasswordForm = () => {
